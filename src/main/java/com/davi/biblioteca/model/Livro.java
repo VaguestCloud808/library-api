@@ -1,4 +1,4 @@
-package com.davi.biblioteca.libraryapi;
+package com.davi.biblioteca.model;
 
 import java.time.LocalDateTime;
 

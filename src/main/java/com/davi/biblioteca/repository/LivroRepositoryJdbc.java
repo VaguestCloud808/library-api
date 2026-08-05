@@ -1,5 +1,6 @@
-package com.davi.biblioteca.libraryapi;
+package com.davi.biblioteca.repository;
 
+import com.davi.biblioteca.model.Livro;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;

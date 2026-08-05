@@ -1,4 +1,7 @@
-package com.davi.biblioteca.libraryapi;
+package com.davi.biblioteca.repository;
+
+import com.davi.biblioteca.model.Livro;
+
 import java.util.List;
 import java.util.Optional;
 

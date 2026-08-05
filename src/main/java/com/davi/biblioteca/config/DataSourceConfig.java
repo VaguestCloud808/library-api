@@ -1,4 +1,4 @@
-package com.davi.biblioteca.libraryapi;
+package com.davi.biblioteca.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

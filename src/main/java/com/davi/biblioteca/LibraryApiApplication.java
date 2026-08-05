@@ -1,4 +1,4 @@
-package com.davi.biblioteca.libraryapi;
+package com.davi.biblioteca;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LibraryApiApplication {
 
-
-
-	public static void main(String[] args) {
-		SpringApplication.run(LibraryApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LibraryApiApplication.class, args);
+    }
 
 }
