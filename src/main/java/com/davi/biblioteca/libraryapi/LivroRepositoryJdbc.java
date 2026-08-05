@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class LivroRepositoryJdbc implements LivroRepository {
@@ -72,7 +73,7 @@ public class LivroRepositoryJdbc implements LivroRepository {
     }
 
     @Override
-    public Livro buscarPorId(Long id) {
+    public Optional<Livro> buscarPorId(Long id) {
         String sql = "SELECT id, titulo, autor, isbn, quantidade_total, quantidade_disponivel, data_cadastro "
                 + "FROM livro WHERE id = ?";
 
@@ -83,9 +84,9 @@ public class LivroRepositoryJdbc implements LivroRepository {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return mapearResultSet(rs);
+                    return Optional.of(mapearResultSet(rs));
                 }
-                return null;
+                return Optional.empty();
             }
 
         } catch (SQLException e) {

@@ -1,5 +1,6 @@
 package com.davi.biblioteca.libraryapi;
 import java.util.List;
+import java.util.Optional;
 
 public interface LivroRepository {
 
@@ -7,5 +8,5 @@ public interface LivroRepository {
 
     List<Livro> listar();
 
-    Livro buscarPorId(Long id);
+    Optional<Livro> buscarPorId(Long id);
 }

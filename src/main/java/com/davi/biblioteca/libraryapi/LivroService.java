@@ -2,6 +2,7 @@ package com.davi.biblioteca.libraryapi;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LivroService {
@@ -21,7 +22,7 @@ public class LivroService {
         return repository.listar();
     }
 
-    public Livro buscarPorId(Long id) {
+    public Optional<Livro> buscarPorId(Long id) {
         return repository.buscarPorId(id);
     }
 
