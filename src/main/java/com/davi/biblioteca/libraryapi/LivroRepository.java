@@ -9,4 +9,6 @@ public interface LivroRepository {
     List<Livro> listar();
 
     Optional<Livro> buscarPorId(Long id);
+
+    void atualizar(Livro livro);
 }

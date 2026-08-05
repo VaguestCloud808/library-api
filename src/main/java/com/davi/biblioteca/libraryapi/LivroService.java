@@ -26,6 +26,19 @@ public class LivroService {
         return repository.buscarPorId(id);
     }
 
+    public Optional<Livro> atualizar(Livro livro) {
+        if (livro.getId() == null) {
+            throw new IllegalArgumentException("Id do livro é obrigatório para atualização");
+        }
+        Optional<Livro> existente = repository.buscarPorId(livro.getId());
+        if (existente.isEmpty()) {
+            throw new IllegalArgumentException("Livro com id " + livro.getId() + " não encontrado");
+        }
+        validar(livro);
+        repository.atualizar(livro);
+        return repository.buscarPorId(livro.getId());
+    }
+
     private void validar(Livro livro) {
         if (livro.getTitulo() == null || livro.getTitulo().isBlank()) {
             throw new IllegalArgumentException("Título é obrigatório");

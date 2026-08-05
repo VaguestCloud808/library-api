@@ -24,8 +24,7 @@ public class LivroRepositoryJdbc implements LivroRepository {
 
     @Override
     public Livro salvar(Livro livro) {
-        String sql = "INSERT INTO livro (titulo, autor, isbn, quantidade_total, quantidade_disponivel, data_cadastro) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO livro (titulo, autor, isbn, quantidade_total, quantidade_disponivel, data_cadastro) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -91,6 +90,22 @@ public class LivroRepositoryJdbc implements LivroRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar livro por id", e);
+        }
+    }
+
+    @Override
+    public void atualizar(Livro livro) {
+        String sql = "UPDATE livro SET titulo = ?, autor = ?, isbn = ?, quantidade_total = ? WHERE id = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, livro.getTitulo());
+            ps.setString(2, livro.getAutor());
+            ps.setString(3, livro.getIsbn());
+            ps.setInt(4, livro.getQuantidadeTotal());
+            ps.setLong(5, livro.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar livro: " + e.getMessage(), e);
         }
     }
 
