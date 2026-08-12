@@ -6,6 +6,7 @@ import com.davi.biblioteca.model.Livro;
 import com.davi.biblioteca.repository.LivroRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,9 @@ public class LivroService {
 
     public Livro salvar(Livro livro) {
         validar(livro);
+        if (livro.getDataCadastro() == null) {
+            livro.setDataCadastro(LocalDateTime.now());
+        }
         repository.salvar(livro);
         return livro;
     }
@@ -33,6 +37,16 @@ public class LivroService {
             throw new DadosInvalidosException("ID não pode ser nulo");
         }
         return repository.buscarPorId(id);
+    }
+
+    public void deletar(Long id) {
+        if (id == null) {
+            throw new DadosInvalidosException("ID não pode ser nulo");
+        }
+        if (!repository.buscarPorId(id).isPresent()) {
+            throw new LivroNaoEncontradoException("Livro com ID " + id + " não encontrado");
+        }
+        repository.deletar(id);
     }
 
     public Optional<Livro> atualizar(Long id, Livro livro) {

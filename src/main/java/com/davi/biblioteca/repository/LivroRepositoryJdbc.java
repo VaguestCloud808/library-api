@@ -110,6 +110,18 @@ public class LivroRepositoryJdbc implements LivroRepository {
         }
     }
 
+    @Override
+    public boolean deletar(Long id) {
+        String sql = "DELETE FROM livro WHERE id = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar livro: " + e.getMessage(), e);
+        }
+    }
+
     private Livro mapearResultSet(ResultSet rs) throws SQLException {
         Livro livro = new Livro();
         livro.setId(rs.getLong("id"));

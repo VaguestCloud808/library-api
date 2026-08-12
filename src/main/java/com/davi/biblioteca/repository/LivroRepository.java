@@ -14,4 +14,6 @@ public interface LivroRepository {
     Optional<Livro> buscarPorId(Long id);
 
     void atualizar(Livro livro);
+
+    boolean deletar(Long id);
 }
