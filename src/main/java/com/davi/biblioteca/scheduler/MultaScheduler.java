@@ -40,7 +40,7 @@ public class MultaScheduler {
                 continue;
             }
             try {
-                if (multaService.gerarMultaSeAtrasado(emp, referencia) != null) {
+                if (multaService.gerarMultaNovaSeAtrasado(emp, referencia)) {
                     geradas++;
                 }
             } catch (RuntimeException ex) {

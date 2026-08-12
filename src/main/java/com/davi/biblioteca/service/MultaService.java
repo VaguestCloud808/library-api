@@ -84,6 +84,15 @@ public class MultaService {
         return multaRepository.salvar(nova);
     }
 
+    public boolean gerarMultaNovaSeAtrasado(Emprestimo emprestimo, LocalDateTime referencia) {
+        if (multaRepository.existePorEmprestimoId(emprestimo.getId())) {
+            return false;
+        }
+        Multa antes = multaRepository.buscarPorEmprestimoId(emprestimo.getId()).orElse(null);
+        Multa depois = gerarMultaSeAtrasado(emprestimo, referencia);
+        return antes == null && depois != null;
+    }
+
     public Multa pagar(Long multaId) {
         if (multaId == null) {
             throw new DadosInvalidosException("ID da multa não pode ser nulo");
