@@ -16,4 +16,8 @@ public interface LivroRepository {
     void atualizar(Livro livro);
 
     boolean deletar(Long id);
+
+    void decrementarQuantidadeDisponivel(Long id);
+
+    void incrementarQuantidadeDisponivel(Long id);
 }

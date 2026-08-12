@@ -1,5 +1,6 @@
 package com.davi.biblioteca.repository;
 
+import com.davi.biblioteca.exception.DadosInvalidosException;
 import com.davi.biblioteca.model.Livro;
 import org.springframework.stereotype.Repository;
 
@@ -119,6 +120,33 @@ public class LivroRepositoryJdbc implements LivroRepository {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao deletar livro: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void decrementarQuantidadeDisponivel(Long id) {
+        String sql = "UPDATE livro SET quantidade_disponivel = quantidade_disponivel - 1 WHERE id = ? AND quantidade_disponivel > 0";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            int affected = ps.executeUpdate();
+            if (affected == 0) {
+                throw new DadosInvalidosException("Livro com ID " + id + " sem exemplares disponiveis");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao decrementar quantidade disponivel: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void incrementarQuantidadeDisponivel(Long id) {
+        String sql = "UPDATE livro SET quantidade_disponivel = quantidade_disponivel + 1 WHERE id = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao incrementar quantidade disponivel: " + e.getMessage(), e);
         }
     }
 
