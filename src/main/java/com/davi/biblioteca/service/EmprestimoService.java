@@ -24,13 +24,16 @@ public class EmprestimoService {
     private final EmprestimoRepository emprestimoRepository;
     private final LivroRepository livroRepository;
     private final UsuarioRepository usuarioRepository;
+    private final MultaService multaService;
 
     public EmprestimoService(EmprestimoRepository emprestimoRepository,
                              LivroRepository livroRepository,
-                             UsuarioRepository usuarioRepository) {
+                             UsuarioRepository usuarioRepository,
+                             MultaService multaService) {
         this.emprestimoRepository = emprestimoRepository;
         this.livroRepository = livroRepository;
         this.usuarioRepository = usuarioRepository;
+        this.multaService = multaService;
     }
 
     @Transactional
@@ -78,6 +81,7 @@ public class EmprestimoService {
         LocalDateTime agora = LocalDateTime.now();
         emprestimoRepository.registrarDevolucao(emprestimoId, agora);
         livroRepository.incrementarQuantidadeDisponivel(existente.getLivroId());
+        multaService.gerarMultaSeAtrasado(existente, agora);
 
         existente.setDataDevolucaoReal(agora);
         return existente;
