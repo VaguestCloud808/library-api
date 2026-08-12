@@ -1,7 +1,8 @@
-package com.davi.biblioteca.service;
+package com.davi.biblioteca.scheduler;
 
 import com.davi.biblioteca.model.Emprestimo;
 import com.davi.biblioteca.repository.EmprestimoRepository;
+import com.davi.biblioteca.service.MultaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;

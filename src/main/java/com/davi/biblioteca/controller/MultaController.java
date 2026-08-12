@@ -4,7 +4,7 @@ import com.davi.biblioteca.exception.EntidadeNaoEncontradaException;
 import com.davi.biblioteca.model.Emprestimo;
 import com.davi.biblioteca.model.Multa;
 import com.davi.biblioteca.repository.EmprestimoRepository;
-import com.davi.biblioteca.service.MultaScheduler;
+import com.davi.biblioteca.scheduler.MultaScheduler;
 import com.davi.biblioteca.service.MultaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
