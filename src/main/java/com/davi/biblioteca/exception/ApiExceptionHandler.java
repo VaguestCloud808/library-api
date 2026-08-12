@@ -18,6 +18,12 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(corpo);
     }
 
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ResponseEntity<Map<String, Object>> handleEntidadeNaoEncontrada(EntidadeNaoEncontradaException ex) {
+        Map<String, Object> corpo = criarCorpoErro(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(corpo);
+    }
+
     @ExceptionHandler(DadosInvalidosException.class)
     public ResponseEntity<Map<String, Object>> handleDadosInvalidos(DadosInvalidosException ex) {
         Map<String, Object> corpo = criarCorpoErro(HttpStatus.BAD_REQUEST, ex.getMessage());
